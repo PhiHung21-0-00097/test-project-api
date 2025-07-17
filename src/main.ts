@@ -3,11 +3,12 @@ import { AppModule } from './app.module';
 import * as express from 'express';
 import { ExpressAdapter } from '@nestjs/platform-express';
 
-const server = express();
+const expressApp = express();
+
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule , new ExpressAdapter(server));
-  await app.init()
+  const app = await NestFactory.create(AppModule, new ExpressAdapter(expressApp));
+  await app.init(); // ✅ cần có "await" ở đây!
 }
 bootstrap();
 
-export default server;
+export default expressApp; // ✅ rất quan trọng để Vercel có thể dùng
